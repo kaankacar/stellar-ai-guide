@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+*.log
+
+# Scratch directories used while assembling this monorepo from the original single-country repos.
+src-mx/
+src-br/
+src-rsp/
