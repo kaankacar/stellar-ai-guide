@@ -131,6 +131,7 @@ See `Starter_Prompts.md` for a ready-to-fill CLAUDE.md template for Stellar proj
 
 | Plugin / Skill | What it does | Install |
 |---|---|---|
+| `stellar-build` (kaankacar) | 42 skills + 6 SDF-DevRel-named AI personas covering the full Stellar journey: idea discovery, PRD/UX, architecture, story-driven dev, mainnet deploy, SCF grant submission. Bundles `stellar-dev-skill`, the LumenLoop catalog (728 projects), and Electric Capital's Stellar taxonomy. Installs to both `~/.claude/skills/` and `~/.codex/skills/`. See `Recommended_AI_Tools.md` for the full breakdown. | `curl -fsSL https://raw.githubusercontent.com/kaankacar/stellar-build/main/install.sh \| bash` |
 | `stellar-dev:stellar-dev` | Full Stellar development playbook covering 8 modules: Soroban contracts (Rust), RPC vs Horizon, frontend + wallet integration, classic assets + SAC, common pitfalls, security checklist, testing strategy, ecosystem catalog. | Pre-installed in Claude Code; invoke by name |
 | `openzeppelin-skills` | Three skills: `setup-stellar-contracts`, `upgrade-stellar-contracts`, `develop-secure-contracts`. Installs OZ MCP server for AI-assisted contract generation. | `/plugin marketplace add OpenZeppelin/openzeppelin-skills` |
 

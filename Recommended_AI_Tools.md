@@ -12,12 +12,58 @@ Start here. These are unique to the Stellar ecosystem.
 | **Stella** | Official AI bot for Stellar dev questions (beta) | https://developers.stellar.org/docs/tools/developer-tools/ai-bot (yellow chat icon on docs site); also `#stella-help` on Discord |
 | **llms.txt** | Machine-readable Stellar docs digest designed for feeding into LLMs | https://developers.stellar.org/llms.txt (covers Build, Learn, Tokens, Data, Tools, Networks, Validators) |
 | **stellar-dev skill** | Claude Code skill (Jan 2026 playbook) covering Soroban, SDKs, RPC, wallet integration, passkeys, and security patterns | Invoke with `stellar-dev:stellar-dev` in Claude Code; repo: https://github.com/stellar/stellar-dev-skill |
+| **stellar-build** (kaankacar) | One-command install that drops 42 skills + 6 SDF-DevRel-named AI personas into Claude Code and Codex CLI, covering the full Stellar journey: idea discovery, PRD/UX design, architecture, story-driven dev, mainnet deploy, and SCF grant submission. Bundles `stellar-dev-skill`, the LumenLoop ecosystem catalog (728 projects), and Electric Capital's Stellar taxonomy (9,027 repos). | `curl -fsSL https://raw.githubusercontent.com/kaankacar/stellar-build/main/install.sh \| bash`; repo: https://github.com/kaankacar/stellar-build |
 | **OpenZeppelin skills** | Claude Code skills for secure Stellar contract development: `setup-stellar-contracts`, `upgrade-stellar-contracts`, and `develop-secure-contracts`. Installs optional MCP servers for AI-assisted contract generation. | Install: `/plugin marketplace add OpenZeppelin/openzeppelin-skills` in Claude Code; repo: https://github.com/OpenZeppelin/openzeppelin-skills |
 | **Smart Account Kit** (kalepail) | TypeScript SDK for building passkey smart wallets on Soroban: `createWallet`, `connectWallet` (silent session restore), `signAndSubmit`, gasless tx via OZ Relayer, multiple signer types (passkeys, Ed25519, policies) | https://github.com/kalepail/smart-account-kit |
 | **Stellar MCP Server** (kalepail) | MCP server running on Cloudflare Workers; exposes Stellar wallet, token, and contract tools to Claude and other AI clients | https://github.com/kalepail/stellar-mcp-server |
 | **XDR MCP** (leighmcculloch) | MCP server that decodes and encodes Stellar XDR to/from JSON for AI agents | https://github.com/stellar-experimental/mcp-stellar-xdr |
 | **Scaffold Stellar** | CLI tool for the full Stellar app development lifecycle — smart contract management, testing, and deployment with enforced best practices baked in. Install: `cargo install --locked stellar-scaffold-cli` | https://scaffoldstellar.org |
 | **x402** | Per-request HTTP payment protocol for AI agents, powered by Soroban auth entry signing | https://developers.stellar.org/docs/build/apps/x402 |
+
+### stellar-build: the full Stellar journey as Claude Code skills
+
+stellar-build (https://github.com/kaankacar/stellar-build) is a one-command install that drops 42 skills plus curated Stellar ecosystem data into both `~/.claude/skills/` and `~/.codex/skills/`, so the same prompts work in Claude Code, Codex CLI, or any agent that reads those paths.
+
+**Install:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/kaankacar/stellar-build/main/install.sh | bash
+```
+
+**The 5-phase journey:**
+
+| Phase | What it gives you |
+|---|---|
+| Idea | `find-stellar-idea`, `scf-round-watcher`, validation against the 728-project ecosystem |
+| Planning | PRD, UX design, product brief — driven by SDF-DevRel-named personas |
+| Solutioning | Architecture, epics, stories, plus the full `stellar/stellar-dev-skill` for Soroban + dapp + assets |
+| Implementation | Story-driven dev, code review, debugging |
+| Launch | Devnet→mainnet deploy plus 10 SCF grant lifecycle skills |
+
+**Six AI agent personas** named for SDF DevRel team members — invoke any by name (`"talk to Tyler"`, `"Justin, who are my competitors?"`):
+
+| Persona | Role |
+|---|---|
+| Justin | Business Analyst — market research, competitive analysis, requirements elicitation |
+| Bri | Tech Writer — documentation, knowledge curation, technical writing |
+| Nicole | Product Manager — PRDs, requirements discovery, stakeholder alignment |
+| Kaan | UX Designer — interaction design, UX specifications |
+| Tyler | System Architect — architecture decisions, Soroban contract design |
+| Elliot | Senior Developer — code, story execution, implementation |
+
+`/party-mode` spawns each persona as a real isolated subagent (one git worktree per persona). Your project folder needs to be a git repo with at least one commit for true multi-agent mode; otherwise it falls back to solo mode (single LLM, six voices). `git init && git commit --allow-empty -m "init"` is the fix.
+
+**Curated data shipped with the install:**
+- LumenLoop ecosystem catalog — 728 Stellar projects, SCF rounds, audits, tokens
+- Electric Capital's Stellar developer taxonomy — 9,027 catalogued repos
+- Stellar Foundation `ecosystem-resources` reference docs
+
+**When it fits a hackathon:**
+- You don't know what to build yet → `find-stellar-idea` + `scf-round-watcher`
+- You want a paper trail (PRD, architecture decisions, stories) before writing code
+- You plan to submit to SCF after the hackathon and want the grant skills already wired up
+- You want a sounding-board team without recruiting one
+
 
 ### x402: HTTP Payments for AI Agents
 
