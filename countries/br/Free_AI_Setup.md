@@ -51,6 +51,7 @@ These are the fastest ways to get usable AI access without setting up local infe
 | Need | Best option | Why | Signup |
 |---|---|---|---|
 | Best quick coding chat | Cursor free tier | Built into a VS Code-like editor | https://cursor.com |
+| Best free coding agent CLI | Freebuff | `npm i -g freebuff`, no key, ~5h/day of DeepSeek V4 Flash, 9 subagents | https://freebuff.com |
 | Best Stellar-specific help | Stella | Trained on Stellar docs and ecosystem material | https://developers.stellar.org |
 | Best long-context browser tool | Google AI Studio | Gemini models are strong for large pasted files | https://aistudio.google.com |
 | Best low-latency API | Groq | Very fast inference for chat and agent loops | https://console.groq.com |
@@ -58,6 +59,36 @@ These are the fastest ways to get usable AI access without setting up local infe
 | Best high-throughput API | Cerebras | Strong for batch generation and fast token output | https://cloud.cerebras.ai |
 | Best NVIDIA-hosted sandbox | NVIDIA NIM | OpenAI-compatible API for NVIDIA-hosted models | https://build.nvidia.com |
 | Best model demo hosting | Hugging Face Spaces | Free community hosting for Gradio/Streamlit demos | https://huggingface.co/spaces |
+
+
+### 2a.1 Freebuff: free coding agent CLI
+
+Freebuff (https://freebuff.com) is a free terminal coding agent published by the team behind Codebuff. No subscription, no API key, no configuration — install and run.
+
+**Install:**
+
+```bash
+npm install -g freebuff
+freebuff
+```
+
+**What you get:**
+
+- About 5 hours per day of DeepSeek V4 Flash (per the project site at time of writing — check the current quota at https://freebuff.com before relying on it for a live demo).
+- 9 specialized subagents, including code review, browser use, and deep thinking.
+- Quick context gathering and fast models, advertised as a 2–5x speedup on common coding tasks.
+- "Limited mode" when the free quota is exhausted (smaller model fallback so the agent still runs).
+
+**When it fits a hackathon weekend:**
+
+- You want an agentic coding tool but don't want to fight with API keys, billing, or per-request rate limits.
+- You're already comfortable with terminal-first coding agents (similar mental model to Claude Code, Aider, or Codex CLI).
+- You need a backup when your primary Claude Code session hits a paid-tier limit.
+
+**Caveats:**
+
+- Free quotas on hosted services change. If the daily limit moves or the model swaps (DeepSeek V4 Flash → something else), this guide will be stale before the FAQ on the site is.
+- Like every free hosted coding agent, do not paste production secrets or proprietary code into it.
 
 
 ### 2b. OpenRouter: one API for many free models

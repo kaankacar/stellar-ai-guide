@@ -4,7 +4,7 @@
 
 [One-paragraph intro for this country: what makes the local payment rail interesting (instant settlement? remittance corridor? FX volume?), and how Stellar slots into it.]
 
-**About to open Claude Code for the first time?** Start with `../../shared/Starter_Prompts.md`.
+**About to open Claude Code for the first time?** Start with `../../Starter_Prompts.md`.
 
 **Building with [Local Currency] rails?** [Name the primary anchor for this country and the rail it covers. Link to the relevant section of `Dev_Setup_Guide.md`.]
 
@@ -13,12 +13,12 @@
 
 ## Read order
 
-1. `../../shared/Starter_Prompts.md` before your first Claude Code session
+1. `../../Starter_Prompts.md` before your first Claude Code session
 2. `Free_AI_Setup.md` if you need free AI access
 3. `Dev_Setup_Guide.md` for the protocol-by-protocol setup, anchor auth, and gotchas for this country
 4. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem for this region
-5. `../../shared/Claude_Code_Guide.md` for commands, parallel agents, and browser automation
-6. `../../shared/Recommended_AI_Tools.md` to explore what else is available
+5. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
+6. `../../Recommended_AI_Tools.md` to explore what else is available
 
 
 ## What's in this folder
@@ -32,5 +32,5 @@
 ## Conventions
 
 - Use lowercase ISO 3166-1 alpha-2 codes for country folder names.
-- Link to shared docs with `../../shared/<filename>.md`.
+- Link to shared docs with `../../<filename>.md`.
 - Link to sibling docs inside this folder with just the filename.

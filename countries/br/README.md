@@ -6,7 +6,7 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 ## Start here
 
-**About to open Claude Code for the first time?** Start with `../../shared/Starter_Prompts.md`. It has a ready-to-paste protocol context block, the correct way to describe what you're building so Claude doesn't default to the wrong architecture, and a CLAUDE.md template for Stellar projects.
+**About to open Claude Code for the first time?** Start with `../../Starter_Prompts.md`. It has a ready-to-paste protocol context block, the correct way to describe what you're building so Claude doesn't default to the wrong architecture, and a CLAUDE.md template for Stellar projects.
 
 **Building with Brazilian real rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. For Brazil, use Etherfuse as the primary self-service path: BRL to TESOURO via PIX, with the same portable TypeScript anchor library you can drop into any Node project. Alfred Pay, Abroad Finance, and Transfero are relevant Brazil ecosystem references too, but the starter pack treats them as secondary/honorable-mention providers because they do not expose the same self-service developer flow as Etherfuse.
 
@@ -18,13 +18,13 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 ## Suggested reading order
 
-1. `../../shared/Starter_Prompts.md` before your first Claude Code session
+1. `../../Starter_Prompts.md` before your first Claude Code session
 2. `Free_AI_Setup.md` if you need a free AI setup
 3. `Dev_Setup_Guide.md` before writing any code
 4. `PIX_Guide.md` if your app touches BRL, PIX, TESOURO, or a Brazil on/off-ramp
 5. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
-6. `../../shared/Claude_Code_Guide.md` for commands, parallel agents, and browser automation
-7. `../../shared/Recommended_AI_Tools.md` to explore what else is available
+6. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
+7. `../../Recommended_AI_Tools.md` to explore what else is available
 
 ## Starter_Prompts.md
 
@@ -111,7 +111,7 @@ The practical Brazil payment guide for this repo. It focuses on the self-service
 
 **Plan mode** (`Shift+Tab` or `/plan`): Claude reasons through the problem before touching any code. Use it for anything larger than a one-liner. It produces a numbered plan you can edit before it executes.
 
-**Parallel agents:** The pattern that works: plan mode (20 min) → scaffold agent → 3 parallel agents (core logic + tests / state + routing / UI components) → integration agent → browser smoke test. In the DevRel experiment, this cut wall-clock time by roughly 40% on a 145-minute build. `../../shared/Starter_Prompts.md` has the exact prompt to trigger this pattern.
+**Parallel agents:** The pattern that works: plan mode (20 min) → scaffold agent → 3 parallel agents (core logic + tests / state + routing / UI components) → integration agent → browser smoke test. In the DevRel experiment, this cut wall-clock time by roughly 40% on a 145-minute build. `../../Starter_Prompts.md` has the exact prompt to trigger this pattern.
 
 **CLAUDE.md:** A project-level file that every Claude Code session reads automatically on startup. Put your tech stack, USDC issuer, testnet addresses, and any project-specific gotchas here so you never have to re-explain them.
 

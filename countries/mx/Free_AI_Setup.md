@@ -627,7 +627,34 @@ These providers give you signup credits with no ongoing cost:
 | **Fireworks** | $1 | Various open models | https://fireworks.ai |
 
 
-### 5d. Free IDE tools (no API key needed)
+### 5d. Free IDE tools and terminal agents (no API key needed)
+
+### Freebuff (https://freebuff.com)
+
+Freebuff is a free terminal coding agent published by the team behind Codebuff. No subscription, no API key, no configuration.
+
+**Install:**
+
+```bash
+npm install -g freebuff
+freebuff
+```
+
+**What you get:**
+- About 5 hours per day of DeepSeek V4 Flash (per the project site at time of writing — check the current quota at https://freebuff.com before relying on it for a live demo).
+- 9 specialized subagents, including code review, browser use, and deep thinking.
+- Quick context gathering and fast models, advertised as a 2–5x speedup on common coding tasks.
+- "Limited mode" when the free quota is exhausted, so the agent still runs on a smaller fallback model.
+
+**When it fits a hackathon weekend:**
+- You want an agentic coding CLI but don't want to fight with API keys, billing, or per-request rate limits.
+- You're already comfortable with terminal-first coding agents (similar mental model to Claude Code, Aider, or Codex CLI).
+- You need a backup when your primary Claude Code session hits a paid-tier limit.
+
+**Caveats:**
+- Free quotas on hosted services change. If the daily limit moves or the model swaps, this guide will be stale before the FAQ on the site is.
+- Do not paste production secrets or proprietary code into it.
+
 
 ### Cursor (https://cursor.com)
 

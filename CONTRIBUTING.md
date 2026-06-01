@@ -22,19 +22,19 @@ Then, inside the new folder:
 5. Add any country-only walkthroughs (e.g., Brazil has `PIX_Guide.md` because PIX is a self-contained rail with its own dance).
 6. Update the root `README.md` "Supported countries" table to list the new country.
 
-Cross-link the three shared docs as `../../shared/<filename>.md` (the existing MX and BR READMEs show the pattern).
+Cross-link the three country-agnostic root docs as `../../<filename>.md` (the existing MX and BR READMEs show the pattern).
 
 
-## 2. Editing shared docs
+## 2. Editing the root country-agnostic docs
 
-`shared/Claude_Code_Guide.md`, `shared/Recommended_AI_Tools.md`, and `shared/Starter_Prompts.md` must stay country-agnostic. If you find yourself adding country-specific assets, anchors, or rails to a shared doc, the change probably belongs in the relevant `countries/<code>/` folder instead.
+`Claude_Code_Guide.md`, `Recommended_AI_Tools.md`, and `Starter_Prompts.md` at the repo root must stay country-agnostic. If you find yourself adding country-specific assets, anchors, or rails to one of them, the change probably belongs in the relevant `countries/<code>/` folder instead.
 
-When you do edit a shared doc, scan all country READMEs for stale references — anchor lists, asset names, and protocol notes drift across countries over time.
+When you do edit one of these root docs, scan all country READMEs for stale references — anchor lists, asset names, and protocol notes drift across countries over time.
 
 
 ## 3. Editing a country's guide
 
-Stay inside `countries/<code>/`. Don't pull country-specific content into `shared/` just to dedupe — these guides are intentionally allowed to drift, because the rails, anchors, and gotchas in each country drift independently.
+Stay inside `countries/<code>/`. Don't pull country-specific content up to the root just to dedupe — the per-country guides are intentionally allowed to drift, because the rails, anchors, and gotchas in each country drift independently.
 
 
 ## Style
