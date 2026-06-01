@@ -10,14 +10,14 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 **Building with Mexican peso rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. It has Etherfuse (MXN to CETES via SPEI), AlfredPay (MXN to USDC via SPEI), and BlindPay already wired up as a portable TypeScript library you can drop into any Node project. Before you use Etherfuse, read its section in `Dev_Setup_Guide.md`. There are several non-obvious gotchas (auth format, customer_id permanence, sandbox simulation) that have cost developers hours.
 
-**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. The fastest path is NVIDIA Nemotron 3 Super via OpenRouter — a 120B parameter model with a 262K context window, strong on SWE-Bench, completely free. The guide also covers Groq (Llama 3.1 8B at 14,400 req/day), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio, and a table of providers offering free trial credits ($1-$5). If you'd rather run models locally, it covers six open-source models via Ollama and how to rent a GPU server on RunPod or Vast.ai for a few dollars.
+**Don't have a paid AI subscription?** Start with `../../Free_AI_Setup.md`. It opens with FreeLLMAPI — a self-hosted proxy that stacks the free tiers of 16 LLM providers (~1.7B tokens/month) behind one OpenAI-compatible endpoint — then walks through the providers themselves (OpenRouter, Groq, Cerebras, Google AI Studio, NVIDIA NIM, Mistral Codestral, GitHub Models, SambaNova, Scaleway, Nebius, Hyperbolic, Fireworks), Cursor and Freebuff as terminal/IDE coding agents, free GPU notebooks (Colab, Kaggle, Lightning AI, Hugging Face Spaces), and startup credit programs. Local Ollama setup is at the end as a fallback, not the default path.
 
 **About to write code?** Read `Dev_Setup_Guide.md` first. Five minutes here saves hours later.
 
 ## Suggested reading order
 
 1. `../../Starter_Prompts.md` before your first Claude Code session
-2. `Free_AI_Setup.md` if you need a free AI setup
+2. `../../Free_AI_Setup.md` if you need a free AI setup
 3. `Dev_Setup_Guide.md` before writing any code
 4. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
 5. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
@@ -126,7 +126,7 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 | Tool | Free tier | Best for |
 |---|---|---|
-| Claude Code | Free via Ollama (see `Free_AI_Setup.md`) | Agentic terminal coding, full repo context |
+| Claude Code | Free via FreeLLMAPI / OpenRouter / Groq / Gemini, or local Ollama (see `../../Free_AI_Setup.md`) | Agentic terminal coding, full repo context |
 | Continue | Fully free | VS Code/JetBrains, any local or cloud model |
 | Aider | Fully free | Terminal + Git, model-agnostic |
 | Cursor | 2,000 completions/mo | VS Code-like IDE with AI built in |
@@ -138,27 +138,22 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 **Rapid prototyping:** Bolt.new (1M tokens/mo, full-stack from a single prompt), v0 by Vercel (React/Next.js UI from text), Google AI Studio (fully free, 1M context window).
 
-## Free_AI_Setup.md
+## Free_AI_Setup.md (at the repo root)
 
-**Best free cloud option:** NVIDIA Nemotron 3 Super via OpenRouter — 120B params, 262K context window, $0/token, strong on SWE-Bench. Works directly with Claude Code (`claude --model nvidia/nemotron-3-super-120b-a12b:free`). No credit card required.
+The free-AI guide is at the repo root because it's country-agnostic — same providers, same caveats, same setup, whether you're shipping in Mexico, Brazil, or anywhere else.
 
-**Other free cloud APIs (no credit card):** Groq (Llama 3.1 8B at 14,400 req/day — fastest), Mistral Codestral (2,000 req/day, code-optimized), Google AI Studio (Gemini 2.5 Flash, 1M ctx), Cerebras, GitHub Models. All have Claude Code config snippets in the guide.
+**Top of the list — FreeLLMAPI:** A self-hosted OpenAI-compatible proxy that stacks the free tiers of 16 LLM providers (Google, Groq, Cerebras, SambaNova, NVIDIA, Mistral, OpenRouter, GitHub Models, Cohere, Cloudflare, Hugging Face, Z.ai, Ollama Cloud, Kilo, Pollinations, LLM7) behind one `/v1/chat/completions` endpoint — ~1.7B tokens/month combined. Smart routing, automatic failover, encrypted at-rest key storage, single unified API key for your apps. Docker Compose quick start in section 2.0.
 
-**Free trial credits ($1-$5):** SambaNova ($5 for 3 months), Scaleway (1M free tokens), Nebius, Hyperbolic, Fireworks. Enough for a full hackathon weekend.
+**Best no-card hackathon options:** Cursor free tier, Freebuff (`npm i -g freebuff`, ~5h/day of DeepSeek V4 Flash, 9 subagents), Stella for Stellar-specific questions, Google AI Studio for long-context, Groq for low-latency APIs, OpenRouter as the free model gateway, Cerebras for high throughput, NVIDIA NIM, Hugging Face Spaces.
 
-**Open-source models you can run locally:**
+**Best free cloud models right now:** NVIDIA Nemotron 3 Super 120B (`nvidia/nemotron-3-super-120b-a12b:free` on OpenRouter, 262K context, strong on SWE-Bench), Llama 3.3 70B, Llama 4 Scout, Qwen3, Gemini 2.5 Flash (1M context), Mistral Codestral (2,000 req/day). All have Claude Code config snippets in the guide.
 
-| Model | Best for | Min. VRAM |
-|---|---|---|
-| Qwen2.5-Coder-7B | Best all-round coding | 8 GB |
-| Llama 3.1 8B | Best Claude Code compatibility (tool-calling) | 10 GB |
-| Phi-4 (14B) | Low-end hardware, fast responses | 8 GB |
-| DeepSeek-Coder-V2-Lite | Algorithms, competitive coding | 16 GB |
-| Codestral (22B) | Inline autocomplete | 16 GB (quantized) |
-| StarCoder2-7B | Broad language support, open-source friendly | 14 GB |
+**Free trial credits:** SambaNova, Scaleway, Nebius, Hyperbolic, Fireworks, plus AWS Activate, Google for Startups, and Microsoft Founders Hub for projects that grow past the weekend.
 
-All of these run through **Ollama**, which installs in one command. The guide walks through the full setup in 8 steps.
+**Free GPU notebooks:** Colab, Kaggle, Lightning AI, Hugging Face Spaces — for hosted compute when local inference is too slow.
 
-**No GPU?** Rent a GPU server on RunPod (~$0.20/hr for an RTX 4090) or Vast.ai (~$0.15/hr). SSH-tunnel the port back and Claude Code sees it as if it were local. A full hackathon weekend costs $10-20.
+**Local Ollama setup** is kept at the end as a fallback. Current practical models include Devstral, gpt-oss:20b, Qwen3-Coder, DeepSeek V4, Kimi K2.5, GLM-4.6, MiniMax M2.5. Use these only if your laptop can realistically run them.
+
+**No GPU?** Rent on RunPod (~$0.20/hr for an RTX 4090) or Vast.ai (~$0.15/hr) and SSH-tunnel the port back. A full hackathon weekend costs $10-20.
 
 *SDF DevRel, March 2026*

@@ -12,14 +12,14 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 **Need a PIX-specific walkthrough?** Read `PIX_Guide.md`. It explains the practical BRL via PIX <-> TESOURO flow, including Etherfuse sandbox setup, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp order flow, Stellar claim transactions, sandbox simulation endpoints, and the gotchas that usually block builders.
 
-**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md`. It now prioritizes free cloud options first: OpenRouter, Groq, Cerebras, Google AI Studio, NVIDIA NIM, xAI Grok credits, Hugging Face Spaces, free GPU notebooks, and startup credits. Local Ollama setup is still included, but it is intentionally at the end because most hackers should not spend the event fighting laptop inference.
+**Don't have a paid AI subscription?** Start with `../../Free_AI_Setup.md`. It opens with FreeLLMAPI — a self-hosted proxy that stacks the free tiers of 16 LLM providers (~1.7B tokens/month) behind one OpenAI-compatible endpoint — then walks through the providers themselves (OpenRouter, Groq, Cerebras, Google AI Studio, NVIDIA NIM, Mistral Codestral, GitHub Models, SambaNova, Scaleway, Nebius, Hyperbolic, Fireworks), Cursor and Freebuff as terminal/IDE coding agents, free GPU notebooks (Colab, Kaggle, Lightning AI, Hugging Face Spaces), and startup credit programs. Local Ollama setup is at the end as a fallback, not the default path.
 
 **About to write code?** Read `Dev_Setup_Guide.md` first. Five minutes here saves hours later.
 
 ## Suggested reading order
 
 1. `../../Starter_Prompts.md` before your first Claude Code session
-2. `Free_AI_Setup.md` if you need a free AI setup
+2. `../../Free_AI_Setup.md` if you need a free AI setup
 3. `Dev_Setup_Guide.md` before writing any code
 4. `PIX_Guide.md` if your app touches BRL, PIX, TESOURO, or a Brazil on/off-ramp
 5. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
@@ -138,7 +138,7 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 | Tool | Free tier | Best for |
 |---|---|---|
-| Claude Code | Free via OpenRouter/Groq/Gemini or local Ollama (see `Free_AI_Setup.md`) | Agentic terminal coding, full repo context |
+| Claude Code | Free via FreeLLMAPI / OpenRouter / Groq / Gemini, or local Ollama (see `../../Free_AI_Setup.md`) | Agentic terminal coding, full repo context |
 | Continue | Fully free | VS Code/JetBrains, any local or cloud model |
 | Aider | Fully free | Terminal + Git, model-agnostic |
 | Cursor | 2,000 completions/mo | VS Code-like IDE with AI built in |
@@ -150,11 +150,15 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 **Rapid prototyping:** Bolt.new (1M tokens/mo, full-stack from a single prompt), v0 by Vercel (React/Next.js UI from text), Google AI Studio (fully free, 1M context window).
 
-## Free_AI_Setup.md
+## Free_AI_Setup.md (at the repo root)
 
-**Best first move:** use the free cloud stack before trying local inference. OpenRouter, Groq, Cerebras, Google AI Studio, NVIDIA NIM, xAI Grok, Hugging Face Spaces, Kaggle, Colab, and Lightning AI give most teams enough AI access to build without a paid subscription or a high-end laptop.
+The free-AI guide is at the repo root because it's country-agnostic — same providers, same caveats, same setup, whether you're shipping in Brazil, Mexico, or anywhere else.
 
-**Claude Code without paying for Claude API:** The guide includes OpenAI-compatible Claude Code configs for OpenRouter, Groq, and Google AI Studio. For local use, it keeps Ollama instructions at the end with Devstral and `gpt-oss:20b` as the practical starting points.
+**Top of the list — FreeLLMAPI:** A self-hosted OpenAI-compatible proxy that stacks the free tiers of 16 LLM providers (Google, Groq, Cerebras, SambaNova, NVIDIA, Mistral, OpenRouter, GitHub Models, Cohere, Cloudflare, Hugging Face, Z.ai, Ollama Cloud, Kilo, Pollinations, LLM7) behind one `/v1/chat/completions` endpoint — ~1.7B tokens/month combined. Smart routing, automatic failover, encrypted at-rest key storage, single unified API key for your apps. Docker Compose quick start in section 2.0.
+
+**Best first move (no card):** use the free cloud stack before trying local inference. Cursor free tier, Freebuff (`npm i -g freebuff`, ~5h/day of DeepSeek V4 Flash, 9 subagents), Stella for Stellar-specific questions, Google AI Studio for long-context, Groq for low-latency APIs, OpenRouter as the free model gateway, Cerebras for high throughput, NVIDIA NIM, Hugging Face Spaces.
+
+**Claude Code without paying for Claude API:** The guide includes OpenAI-compatible Claude Code configs for FreeLLMAPI, OpenRouter, Groq, and Google AI Studio. For local use, it keeps Ollama instructions at the end with Devstral and `gpt-oss:20b` as the practical starting points.
 
 **Free trial credits and startup programs:** SambaNova, Scaleway, Nebius, Hyperbolic, Fireworks, AWS Activate, Google for Startups, Microsoft Founders Hub, and similar programs can cover a full hackathon weekend or an early demo if your project needs more hosted compute.
 

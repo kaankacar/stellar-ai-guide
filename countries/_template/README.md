@@ -8,13 +8,13 @@
 
 **Building with [Local Currency] rails?** [Name the primary anchor for this country and the rail it covers. Link to the relevant section of `Dev_Setup_Guide.md`.]
 
-**Don't have a paid AI subscription?** Start with `Free_AI_Setup.md` (or link to `../br/Free_AI_Setup.md` if you don't have a country-specific version yet — it is the most current one).
+**Don't have a paid AI subscription?** Start with `../../Free_AI_Setup.md` at the repo root — it's country-agnostic and applies to every country folder.
 
 
 ## Read order
 
 1. `../../Starter_Prompts.md` before your first Claude Code session
-2. `Free_AI_Setup.md` if you need free AI access
+2. `../../Free_AI_Setup.md` if you need free AI access
 3. `Dev_Setup_Guide.md` for the protocol-by-protocol setup, anchor auth, and gotchas for this country
 4. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem for this region
 5. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
@@ -25,8 +25,9 @@
 
 - `Dev_Setup_Guide.md` — country-specific anchors, assets, rails, and gotchas
 - `Hackathon_Resources.md` — regional starter pack, reference implementations, ecosystem links
-- `Free_AI_Setup.md` — free AI options that are reliable in this region
 - `[Optional] <Rail>_Guide.md` — a self-contained guide for the country's primary payment rail if it deserves its own doc (e.g., `PIX_Guide.md` in `countries/br/`)
+
+Free AI tooling lives at the repo root (`../../Free_AI_Setup.md`) because the providers and setup don't change country to country. Don't duplicate it inside a country folder.
 
 
 ## Conventions

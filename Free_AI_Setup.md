@@ -1,8 +1,7 @@
 # Stellar Development Foundation Hackathon: AI Tools Guide
 ## Using Open-Source AI Models for Coding
 
-**Prepared for: Stellar AI Guide Brazil**
-**Date: March 2026**
+**For Stellar builders**
 
 
 ## Table of Contents
