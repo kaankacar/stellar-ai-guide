@@ -545,6 +545,55 @@ To avoid charges, go to the RunPod dashboard and stop or terminate your pod when
 If you don't want to set up a local model or a VPS, there are several free cloud AI options — including one that rivals the best paid models available today.
 
 
+### 5.0 Start here: FreeLLMAPI — stack 16 free tiers behind one endpoint
+
+[FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) is a self-hosted, OpenAI-compatible proxy that aggregates the free tiers of 16 LLM providers (Google, Groq, Cerebras, SambaNova, NVIDIA, Mistral, OpenRouter, GitHub Models, Cohere, Cloudflare, Hugging Face, Z.ai, Ollama Cloud, Kilo, Pollinations, LLM7) plus any custom OpenAI-compatible endpoint, behind one `/v1/chat/completions` URL. The maintainer's number for the stacked free capacity is **~1.7 billion tokens/month** across 100+ models.
+
+Read this section before working through 5a–5d below. Most of the providers listed there (OpenRouter, Groq, Google AI Studio, Mistral, Cerebras, GitHub Models, NVIDIA NIM, etc.) can be plugged into FreeLLMAPI; once they are, you point your tools at `http://localhost:3001/v1` and never juggle 16 keys again.
+
+**What it gives you:**
+- One `base_url` (`http://localhost:3001/v1`) and one unified `freellmapi-…` API key for every OpenAI-compatible client (OpenAI SDK, Claude Code, Continue, LangChain, LlamaIndex, Codex CLI, etc.).
+- Automatic failover: on 429/5xx/timeout it skips the failing key, puts it on a cooldown, and retries the next provider in your fallback chain (up to 20 attempts).
+- Per-key RPM/RPD/TPM/TPD tracking so the router always picks a key under its caps.
+- Tool calling and streaming preserved across providers; sticky sessions for 30 minutes to avoid mid-conversation model switches.
+- AES-256-GCM at-rest key encryption, a single dashboard, and analytics per provider/model.
+
+**Quick start (Docker Compose, recommended):**
+
+```bash
+git clone https://github.com/tashfeenahmed/freellmapi.git
+cd freellmapi
+
+# Generate an at-rest encryption key for stored provider keys
+ENCRYPTION_KEY="$(openssl rand -hex 32)"
+printf "ENCRYPTION_KEY=%s\nPORT=3001\n" "$ENCRYPTION_KEY" > .env
+
+docker compose up -d
+```
+
+Open `http://localhost:3001`, register the admin account, paste your free-tier keys on the **Keys** page (every provider listed in section 5b is supported), reorder the **Fallback Chain**, and grab the unified API key from the **Keys** page header.
+
+**Claude Code config (point it at your local FreeLLMAPI):**
+
+```bash
+export ANTHROPIC_BASE_URL="http://localhost:3001/v1"
+export ANTHROPIC_API_KEY="freellmapi-your-unified-key"
+claude --model auto   # or a specific model exposed by the router, e.g. gemini-2.5-flash
+```
+
+**When it's the right move:**
+- You already have, or plan to register for, multiple free-tier accounts.
+- You want a single API key in your project's `.env` instead of one per provider.
+- You want automatic failover when a provider rate-limits you mid-build.
+- You're running anything OpenAI-compatible (Claude Code, Continue, Aider, LangChain, custom scripts) and want all of them backed by the same router.
+
+**Caveats to know before you rely on it:**
+- It's **self-hosted and single-user by design** — there's no public FreeLLMAPI service, you run it yourself (laptop, VPS, Raspberry Pi, anything Node 20+ runs on).
+- The repo is labeled "personal experimentation only." Read the project's Terms-of-Service review and Disclaimer sections before pointing it at a production workload.
+- It does not yet implement embeddings, image generation, audio, legacy `/v1/completions`, moderations, or `n > 1`. If you need any of those, fall back to the individual provider sections below.
+- Free quotas on the underlying providers change. FreeLLMAPI tracks per-key usage but cannot create capacity that the upstream tiers don't give you.
+
+
 ### 5a. NVIDIA Nemotron 3 Super — best free cloud model right now
 
 NVIDIA Nemotron 3 Super is a 120B parameter model available for free through OpenRouter. It has a 262,144-token context window and delivers leading results on SWE-Bench Verified (real-world coding tasks), TerminalBench, and AIME 2025. Model page: https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free
