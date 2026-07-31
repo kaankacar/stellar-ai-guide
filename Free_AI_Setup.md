@@ -100,7 +100,7 @@ These are the fastest ways to get usable AI access without setting up local infe
 |---|---|---|---|
 | Best quick coding chat | Cursor free tier | Built into a VS Code-like editor | https://cursor.com |
 | Best free coding agent CLI | Freebuff | `npm i -g freebuff`, no key, ~5h/day of DeepSeek V4 Flash, 9 subagents | https://freebuff.com |
-| Best Stellar-specific help | Raven MCP | Live MCP server over Stellar docs + ecosystem data; browser playground needs no setup | https://raven.stellar.buzz |
+| Best Stellar-specific help | Raven MCP | Live remote MCP server over Stellar docs + ecosystem data; connect it to your coding agent | https://raven.stellar.buzz |
 | Best long-context browser tool | Google AI Studio | Gemini models are strong for large pasted files | https://aistudio.google.com |
 | Best low-latency API | Groq | Very fast inference for chat and agent loops | https://console.groq.com |
 | Best free model gateway | OpenRouter | One API for many free models with `:free` IDs | https://openrouter.ai |
@@ -461,10 +461,9 @@ Raven is the official hosted MCP (Model Context Protocol) server for the Stellar
 
 Raven exposes two tools: `search` (find relevant docs and ecosystem information) and `execute` (run queries against live ecosystem data). Under the hood it combines Stellar Docs search, the LumenLoop ecosystem database, Stellar Light, and ecosystem skills into cross-referenced answers.
 
-**Where to use Raven:**
+**How to use Raven — connect the remote MCP to your agent:**
 
-- **No setup at all:** the browser playground at https://raven.stellar.buzz/playground (sign in and ask questions directly — the closest thing to the old Stella chat)
-- **From Claude Code** (recommended at the hackathon):
+- **From Claude Code** (the way to use Raven at the hackathon):
 
 ```bash
 claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"
@@ -473,6 +472,8 @@ claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"
 
 - Other MCP clients (Cursor, VS Code, Codex, Claude desktop) connect via their own MCP config or `mcp-remote` — see https://developers.stellar.org/docs/build/building-with-ai for per-platform instructions.
 - Source code: https://github.com/kalepail/stellar-raven
+
+> **About the playground:** https://raven.stellar.buzz/playground (sign-in required) is a demo — it exists so you can *see* what Raven can do before connecting it. Don't build through the playground; when you're actually developing, connect the remote MCP server to your coding agent directly.
 
 **How to use Raven at the Hackathon:**
 
@@ -819,7 +820,7 @@ source ~/.zshrc
 
 | Situation | Recommended Tool |
 |-----------|-----------------|
-| Stellar-specific questions | Raven MCP (raven.stellar.buzz, or /playground in the browser) |
+| Stellar-specific questions | Raven MCP connected to your agent (raven.stellar.buzz) |
 | Best free model gateway | OpenRouter free models |
 | Fastest free inference | Groq or Cerebras |
 | Best long-context free tool | Google AI Studio |

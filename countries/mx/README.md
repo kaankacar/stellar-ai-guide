@@ -114,7 +114,7 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 ## Recommended_AI_Tools.md
 
 **Stellar-native tools:**
-- **Raven**: the official hosted MCP server for Stellar docs + live ecosystem data. Browser playground at https://raven.stellar.buzz/playground (no setup), or connect it to Claude Code with `claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"`. Replaces the retired Stella bot.
+- **Raven**: the official hosted MCP server for Stellar docs + live ecosystem data. Connect it to Claude Code with `claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"` (the browser playground at /playground is just a demo of what it can do). Replaces the retired Stella bot.
 - **llms.txt**: machine-readable Stellar docs digest for feeding into any LLM. https://developers.stellar.org/llms.txt
 - **stellar-dev skill**: Claude Code playbook for Soroban, SDKs, RPC, wallet integration, passkeys, and security patterns.
 - **OpenZeppelin on Stellar**: audited contract library, Contracts Wizard (visual configurator that generates Soroban code), Contracts MCP server, Relayer, Monitor, and Soroban Security Detectors SDK. https://www.openzeppelin.com/networks/stellar
