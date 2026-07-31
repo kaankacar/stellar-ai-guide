@@ -11,6 +11,8 @@ TESOURO on Stellar -> Etherfuse off-ramp -> BRL via PIX
 
 Use this guide when you want a Brazilian real payment flow in a Stellar app without waiting for custom sandbox access from every local provider.
 
+If your team has (or can get) Manteca sandbox keys, there is a second curated route — BRL via PIX <-> USDC on Stellar — covered in section 8. Manteca's sandbox is verified end-to-end on both Stellar legs, but its keys are sales-gated, which is why Etherfuse stays the default self-service path here.
+
 
 ## 1. What PIX Means Here
 
@@ -18,13 +20,13 @@ PIX is Brazil's instant payment system. In this repo, PIX is not a Stellar proto
 
 For this guide:
 
-| Layer | What to use |
-|---|---|
-| Fiat rail | PIX |
-| Anchor / API provider | Etherfuse |
-| Stellar asset | TESOURO |
-| Testnet acquisition path | Etherfuse sandbox on-ramp |
-| Production-style flow | BRL via PIX <-> TESOURO on Stellar |
+| Layer | Self-service default | Curated alternative |
+|---|---|---|
+| Fiat rail | PIX | PIX |
+| Anchor / API provider | Etherfuse | Manteca (keys sales-gated) |
+| Stellar asset | TESOURO | USDC |
+| Testnet acquisition path | Etherfuse sandbox on-ramp | Manteca sandbox ramp-on synthetic |
+| Production-style flow | BRL via PIX <-> TESOURO on Stellar | BRL via PIX <-> USDC on Stellar |
 
 Alfred Pay, Abroad Finance, and Transfero are relevant Brazil ecosystem references, but do not assume the same self-service API flow unless you have current credentials and docs from those teams.
 
@@ -283,7 +285,55 @@ POST /ramp/order/crypto_received
 Then poll the order status until it reaches the expected completed or settled state.
 
 
-## 8. Suggested App Architecture
+## 8. The Manteca Path: BRL via PIX <-> USDC on Stellar
+
+Manteca is the second curated Brazil anchor in the regional starter pack (June 2026). It differs from Etherfuse in three ways: the Stellar asset is USDC (Circle's, the same testnet issuer as in `Dev_Setup_Guide.md`), the whole ramp is orchestrated as a single "synthetic" operation, and the sandbox is high-fidelity — the on-ramp settles real testnet USDC on-chain to the user's address, and the off-ramp detects the inbound on-chain payment and pays out fiat, both reaching `COMPLETED` with no simulation calls.
+
+The catch: sandbox keys are sales-gated (not self-serve). Ask your DevRel mentor or contact Manteca before the event.
+
+### Setup
+
+```bash
+MANTECA_BASE_URL="https://sandbox.manteca.dev"
+MANTECA_API_KEY="your-manteca-sandbox-key"
+```
+
+Auth is a single static header on every request — no OAuth, no token refresh, server-side only:
+
+```http
+md-api-key: your-manteca-sandbox-key
+```
+
+Docs live at https://developers.manteca.dev — every page is available as raw markdown (append `.md`), and https://developers.manteca.dev/llms.txt indexes them all, so you can feed the whole API surface straight to Claude. (The legacy `docs.manteca.dev` portal bot-blocks scrapers; don't use it.)
+
+### Onboarding
+
+Create the user via `POST /crypto/v2/onboarding-actions/initial` with a CPF plus `personalData` (surname, phoneNumber, nationality, address.street, sex, maritalStatus — only name/birthDate/work auto-populate from national databases). Poll the user until `status === 'ACTIVE'`. The sandbox only accepts seeded test identities (test CPF: `40360893821`), and each seeded ID is single-use.
+
+### On-ramp (BRL -> USDC)
+
+1. Read the `USDC_BRL` price (`GET /crypto/v2/prices/direct/USDC_BRL` — the `effectiveBuy`/`effectiveSell` fields are fee-inclusive; there is no separate fee endpoint).
+2. Create a ramp-on synthetic (`POST /crypto/v2/synthetics/ramp-on`) with the user's Stellar destination. The response includes PIX deposit instructions (a QR code in Brazil).
+3. The sandbox auto-detects the PIX deposit in ~15 seconds and auto-converts BRL to USDC — no simulation endpoint needed.
+4. Poll `GET /crypto/v2/synthetics/{id}` until `isTerminal`; the USDC lands on-chain at the user's address.
+
+### Off-ramp (USDC -> BRL)
+
+1. Validate the payout PIX key with `GET /crypto/v2/info/withdraw-destination/{dest}`.
+2. Create a ramp-off synthetic; the response contains Manteca's Stellar deposit address.
+3. **Gotcha:** use the per-network `details.depositAddresses.STELLAR.address` (a muxed `M...` address, no memo needed) — NOT the top-level `depositAddress` scalar, which Manteca fills with the EVM address.
+4. Send the USDC on-chain; Manteca detects it, sells, and pays out via PIX.
+
+### Known quirks
+
+- The ramp-on call is intermittently flaky in sandbox — retry on failure.
+- Sandbox spread is ~0 (not representative of production rates).
+- Each user gets a per-user muxed Stellar deposit address; there is no separate memo.
+
+The starter pack's portable client (`src/lib/anchors/manteca/` — `client.ts` + `types.ts` + `index.ts`, only dependency `@stellar/stellar-sdk`) wraps all of this and was verified against the live sandbox; copy it rather than rebuilding from the docs.
+
+
+## 9. Suggested App Architecture
 
 Keep provider credentials server-side.
 
@@ -321,7 +371,7 @@ type PixRampProvider = {
 This lets you keep the app stable if another Brazil provider later exposes a compatible sandbox or if you add a mock fallback.
 
 
-## 9. Common Gotchas
+## 10. Common Gotchas (Etherfuse)
 
 | Problem | Likely cause | Fix |
 |---|---|---|
@@ -340,7 +390,7 @@ This lets you keep the app stable if another Brazil provider later exposes a com
 | Off-ramp transaction missing | `burnTransaction` not ready yet | Poll `GET /ramp/order/{id}` |
 
 
-## 10. Provider Notes
+## 11. Provider Notes
 
 ### Etherfuse
 
@@ -349,6 +399,12 @@ Use Etherfuse as the primary self-service Brazil path in this repo:
 ```text
 BRL via PIX <-> TESOURO on Stellar
 ```
+
+One caveat from the regional starter pack: Etherfuse's published FX API docs and OpenAPI spec currently cover only Mexico (MXN <-> CETES over SPEI), so its Brazil/PIX support is flagged there as underway and undocumented. The request/response shapes in this guide were live-tested against the Etherfuse sandbox — treat them as your reference, and expect occasional drift until Etherfuse publishes Brazil docs.
+
+### Manteca
+
+The second curated Brazil anchor: BRL via PIX <-> USDC on Stellar, verified end-to-end in sandbox. See section 8. Keys are sales-gated.
 
 ### Transfero
 
@@ -370,14 +426,15 @@ Abroad Finance is relevant for Brazil off-ramp and USDC-to-BRL-via-PIX concepts.
 Alfred Pay has sandbox material and is relevant to Latin America. Use it as an ecosystem reference for Brazil unless your team has confirmed the specific API flow you need.
 
 
-## 11. When to Ask for Help
+## 12. When to Ask for Help
 
 Ask a DevRel mentor or provider contact if:
 
 - You need production PIX behavior, not sandbox simulation.
 - You need provider-specific KYC/KYB behavior.
+- You want Manteca sandbox keys (sales-gated — the mentor may be able to arrange access).
 - You want to use Transfero, Abroad, or Alfred Pay as the primary provider.
 - You need a BRZ mint/redeem flow rather than TESOURO.
 - You are building a passkey smart wallet and need to map `C...` smart accounts to `G...` ramp identities.
 
-For most hackathon builds, use Etherfuse sandbox + TESOURO first, then layer other Brazil providers only after you have confirmed API access.
+For most hackathon builds, use Etherfuse sandbox + TESOURO first (or Manteca if you have keys), then layer other Brazil providers only after you have confirmed API access.

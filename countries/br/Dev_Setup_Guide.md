@@ -5,11 +5,12 @@
 
 ## Section 1: API Keys and Credentials
 
-**Get your Etherfuse key before writing any code.** For Brazil, Etherfuse is the primary self-service path for BRL/PIX/TESOURO flows. Sign up at https://devnet.etherfuse.com/ramp — it takes a few minutes.
+**Get your Etherfuse key before writing any code.** For Brazil, Etherfuse is the primary self-service path for BRL/PIX/TESOURO flows. Sign up at https://devnet.etherfuse.com/ramp — it takes a few minutes. If you want the BRL ↔ USDC path instead, Manteca is the other curated Brazil anchor, but its keys are sales-gated — request them early (or ask your DevRel mentor).
 
 | Protocol | Key Required | How to Get | Wait | Contact |
 |---|---|---|---|---|
 | Etherfuse | Yes | Self-service at https://devnet.etherfuse.com/ramp | Minutes | -- |
+| Manteca | Yes | Sales-gated (contact Manteca / DevRel mentor) | Days | https://developers.manteca.dev |
 | DeFindex | Yes | Self-service via docs | Instant | https://docs.defindex.io/api-integration-guide/api#generate-your-api-key |
 | Soroswap | No | -- | -- | -- |
 | Aquarius | No | -- | -- | -- |
@@ -33,6 +34,16 @@
 - **Brazil flow:** BRL via PIX ↔ TESOURO on Stellar
 - **Mexico flow also supported:** MXN via SPEI ↔ CETES on Stellar, but this Brazil guide defaults to BRL/PIX/TESOURO
 - Sandbox auto-approves bank accounts; production requires KYB review
+
+### Manteca
+
+- **Sandbox base URL:** `https://sandbox.manteca.dev`
+- **Auth header:** `md-api-key: your-api-key` — a single static key, server-side only (see Section 4)
+- **Brazil flow:** BRL via PIX ↔ USDC on Stellar, orchestrated as one "synthetic" operation
+- **Sandbox fidelity:** verified end-to-end — the on-ramp lands real testnet USDC on-chain, the off-ramp detects the inbound on-chain payment and pays out fiat; the PIX deposit auto-detects in ~15s (no simulation endpoint)
+- **Docs:** https://developers.manteca.dev (append `.md` to any page for raw markdown; `llms.txt` indexes everything — ideal for feeding Claude)
+- **Keys:** sales-gated, not self-serve — the reason Etherfuse stays this guide's default
+- Full walkthrough in `PIX_Guide.md` section 8
 
 ### DeFindex
 
@@ -164,7 +175,7 @@ Verified from the Trustless Work registry.
 
 | Source | Issuer Address | Used by |
 |---|---|---|
-| Circle (standard testnet) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` | Soroswap, SDEX, most protocols |
+| Circle (standard testnet) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` | Soroswap, SDEX, most protocols. Also what Manteca's sandbox ramp delivers |
 | Blend | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` | Blend pools |
 | Etherfuse | TBD — Etherfuse feeds their own USDC issuer to testnet SDEX liquidity; verify before using | Etherfuse flows |
 
@@ -203,6 +214,7 @@ Auth format varies per protocol in ways that are not documented anywhere. This t
 | Protocol | Header Format | Notes |
 |---|---|---|
 | Etherfuse | `Authorization: your-api-key` | NO "Bearer" prefix. Raw key only. |
+| Manteca | `md-api-key: your-api-key` | Custom header, not Authorization. Server-side only. |
 | DeFindex | `Authorization: Bearer your-api-key` | Standard Bearer. Opposite of Etherfuse. |
 | AlfredPay | `api-key: <key>` + `api-secret: <secret>` | Two separate headers, not Bearer. |
 | Soroban RPC | Varies by provider | Some use Bearer, some use `X-API-Key` |
@@ -619,6 +631,7 @@ These are things that don't work smoothly yet or aren't documented. If you hit a
 ### Things that still need manual help
 
 - **Etherfuse sandbox key:** self-service at https://devnet.etherfuse.com/ramp. Takes a few minutes.
+- **Manteca sandbox key:** sales-gated — a mentor may be able to arrange access. Also ask for Manteca's seeded test-identity list: the sandbox only accepts seeded CPFs and each one is single-use.
 - **Testnet TESOURO balance:** use the Etherfuse onramp flow to mint testnet TESOURO. The sandbox auto-approves and mints directly to your wallet. This IS the faucet. See Section 3.
 
 ### Things the docs don't cover (save yourself the debugging time)

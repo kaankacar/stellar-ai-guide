@@ -8,9 +8,9 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 
 **About to open Claude Code for the first time?** Start with `../../Starter_Prompts.md`. It has a ready-to-paste protocol context block, the correct way to describe what you're building so Claude doesn't default to the wrong architecture, and a CLAUDE.md template for Stellar projects.
 
-**Building with Brazilian real rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path. For Brazil, use Etherfuse as the primary self-service path: BRL to TESOURO via PIX, with the same portable TypeScript anchor library you can drop into any Node project. Alfred Pay, Abroad Finance, and Transfero are relevant Brazil ecosystem references too, but the starter pack treats them as secondary/honorable-mention providers because they do not expose the same self-service developer flow as Etherfuse.
+**Building with Brazilian real rails?** The regional starter pack (`Hackathon_Resources.md`) is the fastest path, and Brazil now has two curated anchors in it. **Etherfuse** remains the self-service path: BRL to TESOURO via PIX, sandbox key in minutes, with the portable TypeScript anchor library you can drop into any Node project — but note the starter pack flags its published FX docs as Mexico-only, so treat the Brazil shapes in this guide (live-tested against the sandbox) as your reference. **Manteca** (added June 2026) is the second curated anchor: BRL to USDC via PIX, with a high-fidelity sandbox verified end-to-end — the on-ramp lands real testnet USDC on-chain and the off-ramp detects the inbound payment and pays out fiat. Manteca sandbox keys are sales-gated (not self-serve), so ask your DevRel mentor early if you want that path. Alfred Pay, Abroad Finance, and Transfero stay honorable-mention ecosystem references. The live per-criterion comparison is at https://www.regionalstarterpack.com/anchors/scorecard.
 
-**Need a PIX-specific walkthrough?** Read `PIX_Guide.md`. It explains the practical BRL via PIX <-> TESOURO flow, including Etherfuse sandbox setup, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp order flow, Stellar claim transactions, sandbox simulation endpoints, and the gotchas that usually block builders.
+**Need a PIX-specific walkthrough?** Read `PIX_Guide.md`. It explains the practical BRL via PIX <-> TESOURO flow, including Etherfuse sandbox setup, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp order flow, Stellar claim transactions, sandbox simulation endpoints, and the gotchas that usually block builders. It now also covers the Manteca path (BRL <-> USDC via PIX synthetics) for teams with Manteca sandbox access.
 
 **Don't have a paid AI subscription?** Start with `../../Free_AI_Setup.md`. It opens with FreeLLMAPI — a self-hosted proxy that stacks the free tiers of 16 LLM providers (~1.7B tokens/month) behind one OpenAI-compatible endpoint — then walks through the providers themselves (OpenRouter, Groq, Cerebras, Google AI Studio, NVIDIA NIM, Mistral Codestral, GitHub Models, SambaNova, Scaleway, Nebius, Hyperbolic, Fireworks), Cursor and Freebuff as terminal/IDE coding agents, free GPU notebooks (Colab, Kaggle, Lightning AI, Hugging Face Spaces), and startup credit programs. Local Ollama setup is at the end as a fallback, not the default path.
 
@@ -44,7 +44,7 @@ The fastest way to avoid the most common Claude mistake at a hackathon: building
 
 Everything you need before writing code, in one place.
 
-**API keys:** Etherfuse is the important one to get early for Brazil because it is the primary self-service PIX/TESOURO path: https://devnet.etherfuse.com/ramp. DeFindex and Trustless Work are also self-service. Soroswap, Phoenix, Aquarius, and Blend require no key.
+**API keys:** Etherfuse is the important one to get early for Brazil because it is the primary self-service PIX/TESOURO path: https://devnet.etherfuse.com/ramp. Manteca (BRL ↔ USDC via PIX) is the other curated Brazil anchor, but its sandbox keys are sales-gated — ask your DevRel mentor. DeFindex and Trustless Work are also self-service. Soroswap, Phoenix, Aquarius, and Blend require no key.
 
 **Testnet contract addresses:** Verified DeFindex, Soroswap, Blend and Trustless Work addresses are included. Aquarius and Reflector Oracle link to their live registries. Phoenix is the only protocol still TBD.
 
@@ -73,7 +73,7 @@ Everything you need before writing code, in one place.
 ## Hackathon_Resources.md
 
 **Regional starter pack** (Brazil + Latin America): https://github.com/ElliotFriend/regional-starter-pack
-A SvelteKit app with a portable TypeScript anchor library. The `/src/lib/anchors/` folder is framework-agnostic; copy it into any TypeScript or Node project and it works without SvelteKit. Covers SEP-1, SEP-6, SEP-10, SEP-12, SEP-24, SEP-31, and SEP-38. Also ships with pre-configured MCP servers for Claude Code (Svelte docs + Etherfuse docs) so Claude understands the stack out of the box.
+A SvelteKit app with a portable TypeScript anchor library, live at https://www.regionalstarterpack.com. The `/src/lib/anchors/` folder is framework-agnostic; copy it into any TypeScript or Node project and it works without SvelteKit. Curated anchor clients now include Etherfuse, Manteca (Brazil/Argentina/Colombia), and Koywe (Argentina/Mexico/Colombia), plus SEP modules covering SEP-1, SEP-6, SEP-10, SEP-12, SEP-24, SEP-31, and SEP-38. Anchors are scored against a two-lens bar (commercial + developer) on a live scorecard. Also ships with pre-configured MCP servers for Claude Code (Svelte docs + Etherfuse docs) so Claude understands the stack out of the box.
 
 **DeFi reference implementation**: https://github.com/kaankacar/stellar-defi-app
 A full mainnet DeFi dashboard integrating Blend (lending/borrowing with health factor monitoring), Soroswap Aggregator (DEX routing), Phoenix DEX, Aquarius AMM, SDEX, and Reflector Oracle (on-chain USD price feeds). Most useful for seeing how the protocols compose: actual API call shapes, response formats, and how to wire everything together.
@@ -89,7 +89,7 @@ A full mainnet DeFi dashboard integrating Blend (lending/borrowing with health f
 - Stellar Hackathon FAQ (briwylde08): https://github.com/briwylde08/stellar-hackathon-faq
 - Stellar DeFi Gotchas (kaankacar): https://github.com/kaankacar/stellar-defi-gotchas (400+ findings from 60 vibe-coding runs, organized by protocol)
 - Arroz Wallet build log (rice2000): full Python/Flask wallet with Etherfuse on/off-ramp across 14 hours of real development. Great for understanding what end-to-end actually looks like.
-- Stellar Ecosystem DB (lumenloop): https://github.com/lumenloop/stellar-ecosystem-db (structured database of 646 Stellar projects with categories, contracts, and GitHub links). Useful for finding existing work in your space before building from scratch.
+- Stellar Ecosystem DB (lumenloop): https://github.com/lumenloop/stellar-ecosystem-db (structured database of 800+ Stellar projects with categories, contracts, and GitHub links). Useful for finding existing work in your space before building from scratch.
 
 **Videos worth watching:**
 - Scoping and Evaluating Your Project (a must-watch before writing any code)
@@ -101,11 +101,11 @@ All links are in the file.
 
 ## PIX_Guide.md
 
-The practical Brazil payment guide for this repo. It focuses on the self-service Etherfuse path: BRL via PIX <-> TESOURO on Stellar.
+The practical Brazil payment guide for this repo. It focuses on the self-service Etherfuse path (BRL via PIX <-> TESOURO on Stellar) and now includes the Manteca path (BRL via PIX <-> USDC on Stellar) for teams with sandbox access.
 
-**What it covers:** sandbox env vars, Etherfuse auth format, stable `customerId` and `bankAccountId` handling, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp quotes and orders, PIX payment instructions, Stellar claim transactions, and manual sandbox state transitions.
+**What it covers:** sandbox env vars, Etherfuse auth format, stable `customerId` and `bankAccountId` handling, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp quotes and orders, PIX payment instructions, Stellar claim transactions, manual sandbox state transitions, and the Manteca synthetic flow (onboarding with CPF, PIX QR auto-detection, muxed off-ramp deposit addresses).
 
-**Provider scope:** Etherfuse is the recommended implementation path. Transfero, Abroad Finance, and Alfred Pay are included as ecosystem notes, not as assumed drop-in APIs.
+**Provider scope:** Etherfuse is the recommended self-service path; Manteca is the second curated anchor (keys sales-gated). Transfero, Abroad Finance, and Alfred Pay are included as ecosystem notes, not as assumed drop-in APIs.
 
 ## Claude_Code_Guide.md
 

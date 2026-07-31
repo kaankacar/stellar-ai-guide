@@ -2,7 +2,7 @@
 
 A country-agnostic monorepo of developer guides for building on Stellar with AI tooling. Country-specific content lives in `countries/<code>/`; everything that applies across regions sits at the repo root.
 
-The structure follows the same pattern as [ElliotFriend/regional-starter-pack](https://github.com/ElliotFriend/regional-starter-pack): a single repo with regional folders, so a builder in any supported country can clone once and find the right guide for their rails.
+The structure follows the same pattern as [ElliotFriend/regional-starter-pack](https://github.com/ElliotFriend/regional-starter-pack): a single repo with regional folders, so a builder in any supported country can clone once and find the right guide for their rails. The starter pack now curates anchors against two lenses (a commercial bar and a developer bar) and publishes a live, per-criterion [Anchor Readiness Scorecard](https://www.regionalstarterpack.com/anchors/scorecard) — check it before committing to a provider.
 
 
 ## Layout
@@ -21,7 +21,7 @@ The structure follows the same pattern as [ElliotFriend/regional-starter-pack](h
     │   ├── README.md
     │   ├── Dev_Setup_Guide.md
     │   └── Hackathon_Resources.md
-    └── br/                         # Brazil: PIX, TESOURO, BRZ, Etherfuse, Transfero
+    └── br/                         # Brazil: PIX, TESOURO, Etherfuse, Manteca, BRZ
         ├── README.md
         ├── Dev_Setup_Guide.md
         ├── Hackathon_Resources.md
@@ -35,8 +35,8 @@ The four country-agnostic docs at the root (`Claude_Code_Guide.md`, `Free_AI_Set
 
 | Code | Country | Rails covered | Primary anchor path |
 |---|---|---|---|
-| [`mx`](./countries/mx) | Mexico | SPEI | Etherfuse (MXN ↔ CETES), AlfredPay (MXN ↔ USDC), BlindPay (MXN ↔ USDB) |
-| [`br`](./countries/br) | Brazil | PIX | Etherfuse (BRL ↔ TESOURO); Transfero (BRZ), Abroad Finance, Alfred Pay as ecosystem refs |
+| [`mx`](./countries/mx) | Mexico | SPEI | Etherfuse (MXN ↔ CETES), Koywe (MXN ↔ USDC), AlfredPay (MXN ↔ USDC), BlindPay (MXN ↔ USDB) |
+| [`br`](./countries/br) | Brazil | PIX | Etherfuse (BRL ↔ TESOURO), Manteca (BRL ↔ USDC); Transfero (BRZ), Abroad Finance, Alfred Pay as ecosystem refs |
 
 
 ## How to use this repo

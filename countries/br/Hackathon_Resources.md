@@ -13,6 +13,7 @@ Everything you need before writing a line of code. For the full reference (API k
 |---|---|
 | Soroban RPC (testnet) | `https://soroban-testnet.stellar.org` |
 | Etherfuse sandbox | `https://devnet.etherfuse.com` |
+| Manteca sandbox API | `https://sandbox.manteca.dev` (keys sales-gated) |
 | Friendbot (fund testnet accounts) | `https://friendbot.stellar.org` |
 | Testnet USDC issuer (Circle) | `GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5` |
 | Testnet USDC issuer (Blend) | `GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56` |
@@ -22,6 +23,7 @@ Everything you need before writing a line of code. For the full reference (API k
 ### API Keys to Get Early
 
 - **Etherfuse sandbox key:** self-service at https://devnet.etherfuse.com/ramp
+- **Manteca sandbox key:** sales-gated (contact Manteca or ask your DevRel mentor) — worth requesting early if you want the BRL ↔ USDC via PIX path; docs at https://developers.manteca.dev
 - **Soroswap:** no key needed on testnet
 - **DeFindex:** self-service signup at https://docs.defindex.io/api-integration-guide/api#generate-your-api-key
 - **Alfred Pay / Abroad Finance / Transfero:** useful Brazil ecosystem references, but do not assume the same self-service developer flow as Etherfuse
@@ -31,7 +33,8 @@ Everything you need before writing a line of code. For the full reference (API k
 
 - Testnet USDC has two different issuers depending on which protocol you're using; they don't share liquidity. Check which one your protocol expects before swapping.
 - Etherfuse: each end-user of your app gets a permanent `customerId` and `bankAccountId`. Generate them once per user, store them, reuse them forever. Never create duplicates.
-- Etherfuse Brazil uses BRL, PIX, and TESOURO. PIX sandbox support exists, but the regional starter pack flags it as still rough around the edges.
+- Etherfuse Brazil uses BRL, PIX, and TESOURO. The starter pack flags Etherfuse's published FX docs as Mexico-only for now, so its Brazil/PIX shapes are unverified there — the shapes in this repo's `PIX_Guide.md` were live-tested against the Etherfuse sandbox and are your reference.
+- Manteca is the Brazil anchor with the verified sandbox: BRL ↔ USDC via PIX, and both Stellar legs settle end-to-end on testnet (the on-ramp lands real USDC on-chain, the off-ramp detects the inbound payment and pays out fiat). Keys are sales-gated.
 - Transfero issues BRZ, a BRL-denominated stablecoin. Use it as ecosystem context unless you have direct Transfero sandbox/API access.
 - Stellar memos max out at 28 bytes. Anything longer silently fails.
 - SDK v14 renamed several core types. If copying older examples, check the migration notes.
@@ -51,17 +54,26 @@ Everything you need before writing a line of code. For the full reference (API k
 The fastest path to a working integration with Brazilian real rails.
 
 **Repo:** https://github.com/ElliotFriend/regional-starter-pack
+**Live app + scorecard:** https://www.regionalstarterpack.com — the [Anchor Readiness Scorecard](https://www.regionalstarterpack.com/anchors/scorecard) scores every anchor per criterion against two lenses: a commercial bar (local asset, local rails, rates, liquidity) and a developer bar (open access, accurate docs, high-fidelity sandbox, agent-buildable).
 
-A SvelteKit app that serves as a reference implementation for SEP-compliant anchor integrations, paired with a portable TypeScript anchor library. The `/src/lib/anchors/` folder contains individual client implementations and shared SEP modules. For Brazil, the practical self-service path is Etherfuse: BRL to TESOURO via PIX.
+A SvelteKit app that serves as a reference implementation for SEP-compliant anchor integrations, paired with a portable TypeScript anchor library. The `/src/lib/anchors/` folder contains individual client implementations (Etherfuse, Manteca, Koywe, test anchor) and shared SEP modules — each anchor directory is self-contained and copy-pasteable. Brazil now has two curated anchors: Etherfuse (self-service) and Manteca (verified sandbox, sales-gated keys).
 
-### Anchor Providers Included
+### Curated Anchors (Brazil-relevant)
 
 | Anchor | What it does |
 |---|---|
-| **Etherfuse** | BRL to TESOURO via PIX. Primary Brazil path and the only provider here with a self-service developer sandbox flow. |
+| **Etherfuse** | BRL to TESOURO via PIX. The self-service Brazil path (sandbox key in minutes). Note: its published FX docs cover Mexico only for now, so lean on this repo's live-tested `PIX_Guide.md` shapes. |
+| **Manteca** | BRL to USDC via PIX, orchestrated as a single "synthetic" operation. Curated June 2026; sandbox verified end-to-end on both Stellar legs. Also serves Argentina + Colombia. Keys sales-gated. |
+
+### Honorable Mentions (ecosystem references)
+
+| Anchor | What it does |
+|---|---|
 | **Alfred Pay** | Latin America ramp provider. Relevant to Brazil, but use as an ecosystem reference unless you have credentials. |
 | **Abroad Finance** | Brazil off-ramp infrastructure for USDC to BRL via PIX. Relevant reference; not the primary self-service path. |
 | **Transfero** | Issuer of BRZ, a BRL stablecoin on Stellar. Useful asset/context provider; sandbox/API access may require contacting the team. |
+
+The scorecard also tracks in-vetting candidates (Bitso, Yellow Card, Fonbnk, and others) with per-criterion assessments.
 
 ### SEP Protocols Implemented
 
@@ -123,7 +135,7 @@ Four focused reference apps built with Claude Code, each paired with a `BUILD_RE
 | Resource | What it is | Link |
 |---|---|---|
 | **Stellar Ecosystem Resources** (stellar) | Workshop activations, reference guides for Soroban, wallet integration, DeFi protocols, OpenZeppelin, tokens, and security | https://github.com/stellar/ecosystem-resources/ |
-| **Stellar Ecosystem DB** (lumenloop) | Structured YAML database of 646 Stellar projects with metadata: categories, funding, contracts, GitHub/social links | https://github.com/lumenloop/stellar-ecosystem-db |
+| **Stellar Ecosystem DB** (lumenloop) | Structured YAML database of 800+ Stellar projects with metadata: categories, funding, contracts, GitHub/social links | https://github.com/lumenloop/stellar-ecosystem-db |
 | **Awesome Stellar Community Fund** (lumenloop) | 9 AI skills for SCF grant applications + full guides on what gets funded. Useful post-hackathon if applying for SCF. | https://github.com/lumenloop/awesome-stellar-community-fund |
 
 **How to use the Ecosystem DB:** Find existing projects in your category to avoid reinventing the wheel, discover integration partners, check on-chain contract addresses.
