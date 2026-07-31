@@ -9,7 +9,7 @@
 1. [Introduction](#introduction)
 2. [Free AI Coding Alternatives](#free-alternatives)
 3. [Running Your Model on a VPS](#vps-guide)
-4. [About Stella: Stellar's AI Assistant](#stella)
+4. [About Raven: Stellar's MCP Server for AI Agents](#raven)
 5. [Practical Open-Source Models for Hackathon Use](#top-models)
 6. [How to Use a Local Model with Claude Code](#claude-code-guide)
 
@@ -34,7 +34,7 @@ This guide focuses on the practical path: use free cloud tools first, use a VPS 
 
 If you don't want to set up a local model or rent a GPU VPS, you can still build with AI for free by combining free API tiers, model gateways, cloud notebooks, and startup credit programs. Treat these as a stack:
 
-1. Use **Stella** for Stellar-specific questions.
+1. Connect **Raven** (raven.stellar.buzz) to your coding agent for Stellar-specific answers.
 2. Use **Cursor**, **GitHub Copilot Free**, or **Google AI Studio** when you need a tool immediately.
 3. Use **Groq**, **Cerebras**, **OpenRouter**, **NVIDIA NIM**, or **xAI Grok** when you need API access.
 4. Use **Hugging Face Spaces**, **Kaggle**, **Colab**, or **Lightning AI** when you need free hosted compute.
@@ -100,7 +100,7 @@ These are the fastest ways to get usable AI access without setting up local infe
 |---|---|---|---|
 | Best quick coding chat | Cursor free tier | Built into a VS Code-like editor | https://cursor.com |
 | Best free coding agent CLI | Freebuff | `npm i -g freebuff`, no key, ~5h/day of DeepSeek V4 Flash, 9 subagents | https://freebuff.com |
-| Best Stellar-specific help | Stella | Trained on Stellar docs and ecosystem material | https://developers.stellar.org |
+| Best Stellar-specific help | Raven MCP | Live MCP server over Stellar docs + ecosystem data; browser playground needs no setup | https://raven.stellar.buzz |
 | Best long-context browser tool | Google AI Studio | Gemini models are strong for large pasted files | https://aistudio.google.com |
 | Best low-latency API | Groq | Very fast inference for chat and agent loops | https://console.groq.com |
 | Best free model gateway | OpenRouter | One API for many free models with `:free` IDs | https://openrouter.ai |
@@ -451,46 +451,38 @@ To avoid charges, go to the RunPod dashboard and stop or terminate your pod when
 | H100 | 80 GB | Largest models | ~$2.50-4.00/hr |
 
 
-<a id="stella"></a>
+<a id="raven"></a>
 
-## 4. About Stella: Stellar's AI Assistant
+## 4. About Raven: Stellar's MCP Server for AI Agents
 
-**What is Stella?**
+**What is Raven?**
 
-Stella is the official AI assistant developed by the Stellar Development Foundation (SDF) and available on the Stellar developer documentation website at https://developers.stellar.org.
+Raven is the official hosted MCP (Model Context Protocol) server for the Stellar ecosystem, live at https://raven.stellar.buzz. It gives any AI agent — Claude Code, Cursor, Codex, VS Code, Claude desktop — unified access to Stellar documentation and live ecosystem data. It replaces Stella, the retired docs-site chat assistant.
 
-Stella is specifically designed to help developers who are building on the Stellar blockchain network. It is currently in beta and was created to make Stellar development faster and more accessible, especially for developers who are new to the ecosystem.
+Raven exposes two tools: `search` (find relevant docs and ecosystem information) and `execute` (run queries against live ecosystem data). Under the hood it combines Stellar Docs search, the LumenLoop ecosystem database, Stellar Light, and ecosystem skills into cross-referenced answers.
 
-**What can Stella do?**
+**Where to use Raven:**
 
-- Answer questions about the Stellar network, protocols, and SDKs
-- Help you understand Stellar Consensus Protocol (SCP)
-- Explain Soroban smart contracts (Stellar's smart contract platform built on Rust and WebAssembly)
-- Guide you through the Stellar documentation
-- Answer questions about Stellar assets, accounts, transactions, and fees
-- Help debug Stellar-specific code and API calls
+- **No setup at all:** the browser playground at https://raven.stellar.buzz/playground (sign in and ask questions directly — the closest thing to the old Stella chat)
+- **From Claude Code** (recommended at the hackathon):
 
-**Where to find Stella:**
+```bash
+claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"
+# sign in via OAuth when prompted
+```
 
-- Look for the yellow chat icon at the bottom-right corner of https://developers.stellar.org
-- Join the **#stella-help** channel in the Stellar Developer Discord server
+- Other MCP clients (Cursor, VS Code, Codex, Claude desktop) connect via their own MCP config or `mcp-remote` — see https://developers.stellar.org/docs/build/building-with-ai for per-platform instructions.
+- Source code: https://github.com/kalepail/stellar-raven
 
-**What Stella knows:**
+**How to use Raven at the Hackathon:**
 
-Stella draws from a curated knowledge base that includes:
-- Stellar's official documentation and developer guides
-- Stack Overflow answers related to Stellar
-- The SCF (Stellar Community Fund) Handbook
-- YouTube tutorials and educational content
-- GitHub repositories from the Stellar ecosystem
-
-**How to use Stella at the Hackathon:**
-
-During the hackathon, use Stella when you have Stellar-specific questions. It's your first stop for:
+Once connected, your coding agent answers Stellar-specific questions with real docs and live ecosystem data instead of guessing. It's your first stop for:
 - "How do I create a Soroban smart contract?"
 - "What is the difference between Stellar assets and Soroban tokens?"
 - "How do I set up a testnet account?"
-- "How do I interact with the Stellar network using JavaScript?"
+- "Which projects in the ecosystem already do X?"
+
+Raven complements (not replaces) the static `llms.txt` docs digest and the installable Stellar Skills — the three work well together.
 
 For general programming questions, use one of the open-source models described in this guide or a free tool like Cursor or Google AI Studio.
 
@@ -827,7 +819,7 @@ source ~/.zshrc
 
 | Situation | Recommended Tool |
 |-----------|-----------------|
-| Stellar-specific questions | Stella (developers.stellar.org) |
+| Stellar-specific questions | Raven MCP (raven.stellar.buzz, or /playground in the browser) |
 | Best free model gateway | OpenRouter free models |
 | Fastest free inference | Groq or Cerebras |
 | Best long-context free tool | Google AI Studio |

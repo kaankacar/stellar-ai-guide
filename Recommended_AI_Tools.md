@@ -9,7 +9,7 @@ Start here. These are unique to the Stellar ecosystem.
 
 | Resource | What it is | Where to find it |
 |---|---|---|
-| **Stella** | Official AI bot for Stellar dev questions (beta) | https://developers.stellar.org/docs/tools/developer-tools/ai-bot (yellow chat icon on docs site); also `#stella-help` on Discord |
+| **Raven** | Official hosted MCP server: Stellar docs + live ecosystem data for any AI agent (`search` + `execute`); replaces the retired Stella bot | https://raven.stellar.buzz (browser playground at /playground; `claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"`) |
 | **llms.txt** | Machine-readable Stellar docs digest designed for feeding into LLMs | https://developers.stellar.org/llms.txt (covers Build, Learn, Tokens, Data, Tools, Networks, Validators) |
 | **stellar-dev skill** | Claude Code skill (Jan 2026 playbook) covering Soroban, SDKs, RPC, wallet integration, passkeys, and security patterns | Invoke with `stellar-dev:stellar-dev` in Claude Code; repo: https://github.com/stellar/stellar-dev-skill |
 | **stellar-build** (kaankacar) | One-command install that drops 42 skills + 6 SDF-DevRel-named AI personas into Claude Code and Codex CLI, covering the full Stellar journey: idea discovery, PRD/UX design, architecture, story-driven dev, mainnet deploy, and SCF grant submission. Bundles `stellar-dev-skill`, the LumenLoop ecosystem catalog (728 projects), and Electric Capital's Stellar taxonomy (9,027 repos). | `curl -fsSL https://raw.githubusercontent.com/kaankacar/stellar-build/main/install.sh \| bash`; repo: https://github.com/kaankacar/stellar-build |

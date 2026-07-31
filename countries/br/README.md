@@ -126,7 +126,7 @@ Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 ## Recommended_AI_Tools.md
 
 **Stellar-native tools:**
-- **Stella**: SDF's official AI assistant for Stellar dev questions. Yellow chat icon at https://developers.stellar.org, also `#stella-help` on Discord.
+- **Raven**: the official hosted MCP server for Stellar docs + live ecosystem data. Browser playground at https://raven.stellar.buzz/playground (no setup), or connect it to Claude Code with `claude mcp add --transport http stellar-raven "https://raven.stellar.buzz/mcp"`. Replaces the retired Stella bot.
 - **llms.txt**: machine-readable Stellar docs digest for feeding into any LLM. https://developers.stellar.org/llms.txt
 - **stellar-dev skill**: Claude Code playbook for Soroban, SDKs, RPC, wallet integration, passkeys, and security patterns.
 - **OpenZeppelin on Stellar**: audited contract library, Contracts Wizard (visual configurator that generates Soroban code), Contracts MCP server, Relayer, Monitor, and Soroban Security Detectors SDK. https://www.openzeppelin.com/networks/stellar
@@ -156,7 +156,7 @@ The free-AI guide is at the repo root because it's country-agnostic — same pro
 
 **Top of the list — FreeLLMAPI:** A self-hosted OpenAI-compatible proxy that stacks the free tiers of 16 LLM providers (Google, Groq, Cerebras, SambaNova, NVIDIA, Mistral, OpenRouter, GitHub Models, Cohere, Cloudflare, Hugging Face, Z.ai, Ollama Cloud, Kilo, Pollinations, LLM7) behind one `/v1/chat/completions` endpoint — ~1.7B tokens/month combined. Smart routing, automatic failover, encrypted at-rest key storage, single unified API key for your apps. Docker Compose quick start in section 2.0.
 
-**Best first move (no card):** use the free cloud stack before trying local inference. Cursor free tier, Freebuff (`npm i -g freebuff`, ~5h/day of DeepSeek V4 Flash, 9 subagents), Stella for Stellar-specific questions, Google AI Studio for long-context, Groq for low-latency APIs, OpenRouter as the free model gateway, Cerebras for high throughput, NVIDIA NIM, Hugging Face Spaces.
+**Best first move (no card):** use the free cloud stack before trying local inference. Cursor free tier, Freebuff (`npm i -g freebuff`, ~5h/day of DeepSeek V4 Flash, 9 subagents), Raven (raven.stellar.buzz) for Stellar-specific questions, Google AI Studio for long-context, Groq for low-latency APIs, OpenRouter as the free model gateway, Cerebras for high throughput, NVIDIA NIM, Hugging Face Spaces.
 
 **Claude Code without paying for Claude API:** The guide includes OpenAI-compatible Claude Code configs for FreeLLMAPI, OpenRouter, Groq, and Google AI Studio. For local use, it keeps Ollama instructions at the end with Devstral and `gpt-oss:20b` as the practical starting points.
 
