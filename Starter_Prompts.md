@@ -64,6 +64,46 @@ the stores to the core logic, and run the full test suite.
 This pattern (from the DevRel experiment) ran three agents in parallel and cut wall-clock time by roughly 40% on a 145-minute total build.
 
 
+## Browser smoke test
+
+The last step of the build flow above, and the most underused capability in a typical hackathon session. Claude can open your running app, click through every user flow, and verify the on-chain results without you touching the keyboard.
+
+**Setup:** install the Claude in Chrome extension from the Chrome Web Store. Claude then picks up the `mcp__claude-in-chrome__*` tools automatically and can read page content, click elements, and fill forms in your active tab.
+
+Paste this once your dev server is running:
+
+```
+Open http://localhost:5173 in Chrome.
+
+Run this smoke test sequence and report pass/fail for each step:
+
+1. Create wallet: click "Create New Wallet", note the generated mnemonic phrase
+2. Friendbot: call Friendbot for the new wallet's public key, confirm XLM balance appears
+3. Trustline: click "Add stablebond trustline" (e.g., CETES for MX, TESOURO for BR —
+   see `countries/<code>/Dev_Setup_Guide.md`), confirm the transaction succeeds on-chain
+4. Lock/Unlock: click "Lock Wallet", re-enter the password, confirm the app returns to the dashboard
+5. Balance display: confirm XLM balance is visible in the wallet panel
+
+For each step: describe what you see, what you did, and whether it passed.
+If a step fails, paste the error message or console output.
+```
+
+**Known friction point:** programmatic typing via the MCP `type` action fires keyboard events but not the HTML `input` event. If your framework listens to `oninput` (Svelte does), typed values won't trigger reactivity. Add this correction to your prompt:
+
+> After typing into any input field, dispatch a synthetic input event to trigger framework reactivity.
+
+The fix it should apply:
+
+```javascript
+// After typing into an input, dispatch a synthetic input event
+const input = document.querySelector('input[name="password"]');
+input.value = 'your-value';
+input.dispatchEvent(new Event('input', { bubbles: true }));
+```
+
+**Headless alternative:** [`agent-browser`](https://github.com/vercel-labs/agent-browser) (vercel-labs) is a CLI browser built for AI agents, written in Rust. It selects elements from the ARIA accessibility tree instead of CSS selectors, works with any browser, and is faster than Playwright or Puppeteer for agent-driven flows. Use it for server-side automation, CI pipelines, or anywhere you can't run a visible browser. Install with `npm install -g @vercel/agent-browser` or via Homebrew.
+
+
 ## CLAUDE.md template for a Stellar project
 
 Create a `CLAUDE.md` at your repo root with this content. Every Claude Code session reads it automatically.

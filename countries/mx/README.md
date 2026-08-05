@@ -32,6 +32,8 @@ The fastest way to avoid the most common Claude mistake at a hackathon: building
 
 **Parallel agent prompt template:** The exact prompt to spawn three parallel agents (core logic + tests / state + routing / UI components) after your scaffold is done. From the DevRel experiment: same work, 40% less wall-clock time.
 
+**Browser smoke test:** The paste-ready prompt that has Claude in Chrome drive your running app end to end (create wallet → Friendbot → trustline → lock/unlock → verify balance) and report pass/fail per step. Includes the fix for the `oninput` reactivity issue in Svelte, and `agent-browser` as the headless alternative for CI.
+
 **CLAUDE.md template:** What to put in your project's CLAUDE.md for a Stellar wallet build, including Etherfuse and DeFindex specific notes.
 
 **Quick corrective prompts:** One-liners for the most common mid-session corrections (wrong wallet type, wrong SDK version, wrong USDC issuer, stuck on DeFindex key, stuck polling sendTransaction).
