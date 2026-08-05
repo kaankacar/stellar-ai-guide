@@ -23,8 +23,7 @@ This repo is a collection of guides put together by the SDF DevRel team to help 
 3. `Dev_Setup_Guide.md` before writing any code
 4. `PIX_Guide.md` if your app touches BRL, PIX, TESOURO, or a Brazil on/off-ramp
 5. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem
-6. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
-7. `../../Recommended_AI_Tools.md` to explore what else is available
+6. `../../Recommended_AI_Tools.md` to explore what else is available
 
 ## Starter_Prompts.md
 
@@ -106,22 +105,6 @@ The practical Brazil payment guide for this repo. It focuses on the self-service
 **What it covers:** sandbox env vars, Etherfuse auth format, stable `customerId` and `bankAccountId` handling, hosted onboarding, TESOURO asset lookup, on-ramp/off-ramp quotes and orders, PIX payment instructions, Stellar claim transactions, manual sandbox state transitions, and the Manteca synthetic flow (onboarding with CPF, PIX QR auto-detection, muxed off-ramp deposit addresses).
 
 **Provider scope:** Etherfuse is the recommended self-service path; Manteca is the second curated anchor (keys sales-gated). Transfero, Abroad Finance, and Alfred Pay are included as ecosystem notes, not as assumed drop-in APIs.
-
-## Claude_Code_Guide.md
-
-**Plan mode** (`Shift+Tab` or `/plan`): Claude reasons through the problem before touching any code. Use it for anything larger than a one-liner. It produces a numbered plan you can edit before it executes.
-
-**Parallel agents:** The pattern that works: plan mode (20 min) → scaffold agent → 3 parallel agents (core logic + tests / state + routing / UI components) → integration agent → browser smoke test. In the DevRel experiment, this cut wall-clock time by roughly 40% on a 145-minute build. `../../Starter_Prompts.md` has the exact prompt to trigger this pattern.
-
-**CLAUDE.md:** A project-level file that every Claude Code session reads automatically on startup. Put your tech stack, USDC issuer, testnet addresses, and any project-specific gotchas here so you never have to re-explain them.
-
-**Browser integration testing:** Claude in Chrome can open your running app, click through every user flow, and verify on-chain results without you touching the keyboard. The guide has the full smoke test prompt (create wallet → Friendbot → trustline → lock/unlock → verify balance) and the fix for the `oninput` event issue in Svelte.
-
-**Stellar-specific plugins:**
-- `stellar-dev:stellar-dev`: 8-module playbook covering Soroban contract development (Rust), RPC vs Horizon API reference, frontend + wallet integration (Freighter, Wallets Kit v2, passkeys), classic assets + SAC bridge, 15 documented pitfalls with fixes, security checklist, testing strategy (unit + local Quickstart + testnet), and an ecosystem catalog of DeFi protocols, oracles, and tools. Pre-installed in Claude Code.
-- `openzeppelin-skills`: three skills for secure Stellar contract development, plus the OZ MCP server for AI-assisted contract generation. Install with `/plugin marketplace add OpenZeppelin/openzeppelin-skills`.
-
-Full slash command reference, keyboard shortcuts, and CLI flags are in the file.
 
 ## Recommended_AI_Tools.md
 

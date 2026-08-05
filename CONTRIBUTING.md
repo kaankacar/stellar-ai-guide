@@ -23,12 +23,12 @@ Then, inside the new folder:
 
 Do **not** add a `Free_AI_Setup.md` inside the country folder. Free AI tooling is country-agnostic and lives at the repo root (`../../Free_AI_Setup.md`). If a provider is geographically restricted in your country, mention it inside the relevant section of the root file rather than forking the doc.
 
-Cross-link the four country-agnostic root docs as `../../<filename>.md` (the existing MX and BR READMEs show the pattern).
+Cross-link the three country-agnostic root docs as `../../<filename>.md` (the existing MX and BR READMEs show the pattern).
 
 
 ## 2. Editing the root country-agnostic docs
 
-`Claude_Code_Guide.md`, `Free_AI_Setup.md`, `Recommended_AI_Tools.md`, and `Starter_Prompts.md` at the repo root must stay country-agnostic. If you find yourself adding country-specific assets, anchors, or rails to one of them, the change probably belongs in the relevant `countries/<code>/` folder instead.
+`Free_AI_Setup.md`, `Recommended_AI_Tools.md`, and `Starter_Prompts.md` at the repo root must stay country-agnostic. If you find yourself adding country-specific assets, anchors, or rails to one of them, the change probably belongs in the relevant `countries/<code>/` folder instead.
 
 When you do edit one of these root docs, scan all country READMEs for stale references — anchor lists, asset names, and protocol notes drift across countries over time.
 

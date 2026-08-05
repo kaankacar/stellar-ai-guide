@@ -17,8 +17,7 @@
 2. `../../Free_AI_Setup.md` if you need free AI access
 3. `Dev_Setup_Guide.md` for the protocol-by-protocol setup, anchor auth, and gotchas for this country
 4. `Hackathon_Resources.md` to orient yourself in the Stellar ecosystem for this region
-5. `../../Claude_Code_Guide.md` for commands, parallel agents, and browser automation
-6. `../../Recommended_AI_Tools.md` to explore what else is available
+5. `../../Recommended_AI_Tools.md` to explore what else is available
 
 
 ## What's in this folder
